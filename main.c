@@ -33,10 +33,16 @@ int main(int argc, char **argv){
     (Date) today para saber la fecha de ese día y poner el encabezado del mes y esas cosas*/
 
     static const char *mn[12] = {"january", "february", "march", "april", "may", "june", "july", // mn -> months name
-                        "august", "september", "october", "november", "december"}; 
+                        "august", "september", "october", "november", "december"};
+
+    static const char *wrong_mn[12] = {"January", "February", "March", "April", "May", "June", "July", 
+                                       "August", "September", "October", "November", "December"};
 
   
-    for (int i = 0; mn[i] != NULL && argc >= 2; i++) if (strcmp(argv[1], mn[i]) == 0) date.month = i + 1;
+    for (int i = 0; mn[i] != NULL && argc >= 2; i++){
+        if (strcmp(argv[1], mn[i]) == 0) date.month = i + 1;
+        else if (strcmp(argv[1], wrong_mn[i]) == 0) break;  
+    }
 
     if (argc >= 3 && argv[2] != NULL){
         int i = atoi(argv[2]);
