@@ -1,5 +1,5 @@
 # CALENDAR PROJECT IN C
-## WHY DID I MADE THIS PROJECT??
+## WHY I MADE THIS PROJECT
 
 Basically I made it because:
 
