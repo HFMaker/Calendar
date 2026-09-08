@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include "calendar.h"
 
-
-
 int re_tolower(char string[]){
 
     //char name[] = "KIRITO"
@@ -28,6 +26,12 @@ int re_tolower(char string[]){
 
 int main(int argc, char **argv){
     
+    int UME = 0; //Unknown month error;
+    int TPE = 0; //Timestamp parsing error;
+    
+
+
+
     time_t current_date = time(NULL); //Primero obtenemos la fecha en segundos del Epoch time gracias a time(NULL);
 
     //El Epoch time es el tiempo que ha pasado desde el 1 de enero de 1970 
@@ -62,24 +66,42 @@ int main(int argc, char **argv){
     
   
     for (int i = 0; mn[i] != NULL && mn_short[i] != NULL && argc >= 2; i++){
-        //printf("%s\n", mn_short[i]); 
         re_tolower(argv[1]);
-        if (strcmp(argv[1], mn[i]) == 0) date.month = i + 1;
-        else if (strcmp(argv[1], mn_short[i]) == 0){mn_short[i] = mn[i]; date.month = i + 1;}
-     
+        if (strcmp(argv[1], mn[i]) == 0){ date.month = i + 1; UME = 0; break;}
+        if (strcmp(argv[1], mn_short[i]) == 0){mn_short[i] = mn[i]; date.month = i + 1; UME = 0; break;}
+        else UME = 1;
+        
+        
+        
+    
     }
+
+    
+        
 
     if (argc >= 3 && argv[2] != NULL){
         int i = atoi(argv[2]);
-        if (i != 0 && i >= 1000  && i <= 9999) date.year = i; 
+        printf("%d\n", i);
+        if (i > 9999 || i <= 0) {fprintf(stderr, "HF-CAL: illegal year value '%s': Numerical result out of range", argv[2]); return 1;}
+        else if (i == 0) {fprintf(stderr, "HF-Cal: illegal year value: use positive integers\n"); return 1;}
+        date.year = i;
+     
+
     }
 
+     
+    
+    if (UME) {fprintf(stderr, "HF-Cal: failed to parse timestamp or unknown month name: %s\n", argv[1]); return 1;}
 
     int DIM = days_in_month(date.month, date.year); // DIM -> Days In Month
     int weekday = get_weekday(1, date.month, date.year);
-    puts("");    
-    print_header(date.month, date.year); 
+    puts("");
+    print_header(date.month, date.year);
     print_weekdays();
     print_calendar(weekday, DIM, date.day, date.month, date.year, today.day, today.month, today.year);
-    puts(""); 
-}
+
+    puts("");
+    puts("~~~ HF-Cal made by \033[31mHFMaker\033[0m ~~~");
+    puts("");
+    return 0;
+    }

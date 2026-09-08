@@ -62,7 +62,7 @@ void print_header(int month, int year){ //aqui imprimimos algo como "December 20
    
     puts("╔══════════════════════╗");
     printf("║    ");
-    printf("%s %d", months_name[month - 1], year);
+    printf("%s %04d", months_name[month - 1], year);
     if (month == 1 || month == 10 ) printf("      ║\n");
     else if (month == 2 || month == 11 || month == 12) printf("     ║\n");
     else if (month == 3 || month == 4) printf("        ║\n");
