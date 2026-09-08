@@ -22,12 +22,16 @@ EXAMPLES: ./main november 2029
 - If you don't pass any valid arguments, the calendar will use
 the current month and year 
 
-## RECENTLY ADDED/FIXED
+## RECENTLY ADDED
+
+- Months abbreviation as arguments support (ex. oct instead of october, jan instead of january, etc)
+- Unknown month and illegal year value errors handling
+- You can now pass a year between 1 and 9999 as a valid argument 
+
+## RECENTLY FIXED
 
 - Fixed a bug that happened when you tried to pass a month in capital letter instead of lowercase as an argument
-- Added support for months abbreviation as arguments (ex. oct instead of october, jan instead of january, etc)
-- Fixed some English grammar mistakes in this README.md (I didn't notice them) 
-
+- Fixed some English grammar mistakes in this README.md (I didn't notice them)
 
 
 ## IMPORTANT NOTES
