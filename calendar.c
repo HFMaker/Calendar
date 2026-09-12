@@ -55,7 +55,7 @@ int get_weekday(int day, int month, int year) { //Aqui obtenemos el primer dia d
 
     int q = day, m = month, K = year % 100, J = year / 100;
     int h = (q + ((13*(m+1))/5) + K + (K/4) + (J/4) + 5*J ) % 7;
-    return (h + 7) % 7;
+    return h == 0 ? 7 : h;
 }
 
 void print_header(int month, int year){ //aqui imprimimos algo como "December 2067" y eso y lo centramos con espacios
