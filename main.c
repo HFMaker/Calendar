@@ -2,7 +2,41 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "calendar.h"
+
+
+
+void printHelpMessage(void){
+
+    puts("");
+    puts("How to use this goofy ahh tool:");
+    puts("hf-cal [option] [[[day] month] year]");
+    puts("hf-cal [option] <timestamp|monthname>");
+    puts("");
+    puts("Yes, right now you can only use an option at a time");
+    puts("");
+    puts("Display a calendar or something (idk)");
+    puts("Without arguments, display the current month.");
+    puts("");
+
+    puts("Options:");
+    puts("-1, --one             show only a single month (who even uses this option?)");
+    puts("-3, --three           show three months spanning the date");
+    puts("-n, --months <num>    show num months starting with date's month");
+    puts("-m, --monday          Monday as first day of week (the default is Sunday btw");
+    puts("-y, --year            show the whole year");
+    puts("-Y, --twelve          show the next twelve months");
+    puts("");
+ 
+
+    puts("-h, --help            display this help");
+    puts("-V, --version         display version");
+    puts("");
+
+    puts("For more details, uh... I don't know.");
+
+}
 
 int re_tolower(char string[]){
 
@@ -61,6 +95,7 @@ int main(int argc, char **argv){
         re_tolower(argv[1]);
         if (strcmp(argv[1], mn[i]) == 0){ date.month = i + 1; UME = 0; break;}
         if (strcmp(argv[1], mn_short[i]) == 0){mn_short[i] = mn[i]; date.month = i + 1; UME = 0; break;}
+        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {printHelpMessage(); return 0;}
         else UME = 1; 
     }
 
