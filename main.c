@@ -38,6 +38,8 @@ void printHelpMessage(void){
 
 }
 
+void printVersionMessage(void){puts("~~~ hf-cal made by \033[31mHFMaker\033[0m 1.2.4 ~~~");}
+
 int re_tolower(char string[]){
 
     //char name[] = "KIRITO"
@@ -92,7 +94,12 @@ int main(int argc, char **argv){
     static const char *mn_short[12] = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
     
 
-    for (int i = 0; argv[i] != NULL; i++) if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i] , "--help") == 0) {printHelpMessage(); return 0;}
+    for (int i = 0; argv[i] != NULL; i++){
+        if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i] , "--help") == 0) {printHelpMessage(); return 0;}
+        else if (strcmp(argv[i], "-V") == 0 || strcmp(argv[i] , "--version") == 0) {printVersionMessage(); return 0;}
+
+        
+    }
 
     for (int i = 0; i < 12 && argc >= 2; i++){
         re_tolower(argv[1]);
@@ -117,8 +124,6 @@ int main(int argc, char **argv){
     printWeekdays();
     printCalendar(weekday, DIM, date.day, date.month, date.year, today.day, today.month, today.year);
 
-    puts("");
-    puts("~~~ HF-Cal made by \033[31mHFMaker\033[0m ~~~");
-    puts("");
+    
     return 0;
     }

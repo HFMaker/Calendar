@@ -1,13 +1,8 @@
 #include <stdio.h>
 #include "calendar.h"
-typedef unsigned long re_size_t;
 
- int isLeap(int year){  //Aqui comprobamos si el año actual es o no bisiesto
-    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-}
-
+ 
 /*
- *
  *
     ╔══════════════════════╗
     ║       July 2026      ║ 
@@ -21,11 +16,11 @@ typedef unsigned long re_size_t;
     ╚══════════════════════╝*
  *
  *Así es como debería de verse la segunda versión del calendario
- Esta versión del calendario está en desarrollo*
+ *
  * */
 
 
-re_size_t re_strlen(const char *str){ 
+re_size_t re_strlen(const char *str){ //Función importada de Re:lib (como le llamo a mi implementación de la libc)
     
     // re_strlen("Python"); -> 6
     // re_strlen(""); -> 0
@@ -40,14 +35,18 @@ re_size_t re_strlen(const char *str){
 void printCenteredHeaderText(const char *text){
 
     int len = re_strlen(text);
-    int col = (22 - len) / 2;
-    int offset = (22 - len - col);
-    printf("%*s", col, "");
+    int offset1 = (22 - len) / 2;
+    int offset2 = (22 - len - offset1);
+    printf("%*s", offset1, "");
     printf("%s", text);
-    printf("%*s", offset, "");
+    printf("%*s", offset2, "");
     
 
 
+}
+
+int isLeap(int year){  //Aqui comprobamos si el año actual es o no bisiesto
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
 
@@ -75,7 +74,7 @@ FORMULA DE ZELLER PARA SACAR EL DÍA DE LA SEMANA CORRESPONDIENTE*/
 
 int getWeekday(int day, int month, int year) { //Aqui obtenemos el primer dia de la primera semana del mes
 
-    if (month < 3){ // Esta comparativa se hace porque al usar el Epoch time, suele haber una desincronización
+    if (month < 3){ // Esto se hace porque Enero y Febrero se cuentan como el mes 13 y 14 respectivamente
         month += 12;
         year -= 1;
     }
