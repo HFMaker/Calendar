@@ -9,12 +9,12 @@ typedef struct{
     int year;
 } Date; /*Aqui tenemos un struct que hace alusión a una fecha cualquiera*/
 
-void print_calendar(int day, int month_days, int date_day, int date_month, int date_year, int current_day, int current_month, int current_year);
-void print_weekdays();
-void print_header(int month, int year);
-int is_leap(int year);
-int days_in_month(int month, int year);
-int get_weekday(int day, int month, int year);
+void printCalendar(int day, int month_days, int date_day, int date_month, int date_year, int current_day, int current_month, int current_year);
+void printWeekdays();
+void printHeader(int month, int year);
+int isLeap(int year);
+int daysInMonth(int month, int year);
+int getWeekday(int day, int month, int year);
 
 /*Y aqui tenemos funciones que va a usar calendar.c para saber si un año en bisiesto o calcular los dias
 que hay en el mes actual y mas*/

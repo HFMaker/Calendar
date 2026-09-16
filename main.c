@@ -21,7 +21,7 @@ void printHelpMessage(void){
     puts("");
 
     puts("Options:");
-    puts("-1, --one             show only a single month (who even uses this option?)");
+    puts("-1, --one             show only a single month (default)");
     puts("-3, --three           show three months spanning the date");
     puts("-n, --months <num>    show num months starting with date's month");
     puts("-m, --monday          Monday as first day of week (the default is Sunday btw");
@@ -49,7 +49,7 @@ int re_tolower(char string[]){
     
     while (string[i] != '\0'){
 
-    int j = (int) string[i]; 
+    j = (int) string[i]; 
     if (string[i] >= 65 && string[i] <= 90){ j += 32;}
     string[i] = (char)j;
     i++;
@@ -90,30 +90,32 @@ int main(int argc, char **argv){
                         "august", "september", "october", "november", "december"};
 
     static const char *mn_short[12] = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
+    
 
-    for (int i = 0; mn[i] != NULL && mn_short[i] != NULL && argc >= 2; i++){
+    for (int i = 0; argv[i] != NULL; i++) if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i] , "--help") == 0) {printHelpMessage(); return 0;}
+
+    for (int i = 0; i < 12 && argc >= 2; i++){
         re_tolower(argv[1]);
         if (strcmp(argv[1], mn[i]) == 0){ date.month = i + 1; UME = 0; break;}
         if (strcmp(argv[1], mn_short[i]) == 0){mn_short[i] = mn[i]; date.month = i + 1; UME = 0; break;}
-        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {printHelpMessage(); return 0;}
         else UME = 1; 
     }
 
     if (argc >= 3 && argv[2] != NULL){
         int i = atoi(argv[2]);
-        if (i > 9999 || i <= 0) {fprintf(stderr, "hf-cal: illegal year value '%s': Numerical result out of range", argv[2]); return 1;}
+        if (i > 9999 || i < 0) {fprintf(stderr, "hf-cal: illegal year value '%s': Numerical result out of range", argv[2]); return 1;}
         else if (i == 0) {fprintf(stderr, "hf-cal: illegal year value: use positive integers\n"); return 1;}
         date.year = i;
     }
 
     if (UME) {fprintf(stderr, "hf-cal: failed to parse timestamp or unknown month name: %s\n", argv[1]); return 1;}
 
-    int DIM = days_in_month(date.month, date.year); // DIM -> Days In Month
-    int weekday = get_weekday(1, date.month, date.year);
+    int DIM = daysInMonth(date.month, date.year); // DIM -> Days In Month
+    int weekday = getWeekday(1, date.month, date.year);
     puts("");
-    print_header(date.month, date.year);
-    print_weekdays();
-    print_calendar(weekday, DIM, date.day, date.month, date.year, today.day, today.month, today.year);
+    printHeader(date.month, date.year);
+    printWeekdays();
+    printCalendar(weekday, DIM, date.day, date.month, date.year, today.day, today.month, today.year);
 
     puts("");
     puts("~~~ HF-Cal made by \033[31mHFMaker\033[0m ~~~");
