@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "calendar.h"
-
+typedef unsigned long re_size_t;
 
  int isLeap(int year){  //Aqui comprobamos si el año actual es o no bisiesto
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
@@ -25,6 +25,30 @@
  * */
 
 
+re_size_t re_strlen(const char *str){ 
+    
+    // re_strlen("Python"); -> 6
+    // re_strlen(""); -> 0
+
+    re_size_t count = 0; 
+    while (*str++) count++;
+    return count;
+
+}
+
+
+void printCenteredHeaderText(const char *text){
+
+    int len = re_strlen(text);
+    int col = (22 - len) / 2;
+    int offset = (22 - len - col);
+    printf("%*s", col, "");
+    printf("%s", text);
+    printf("%*s", offset, "");
+    
+
+
+}
 
 
 static const char *months_name[12] = {"January", "February", "March", "April", "May", "June", "July",
@@ -64,17 +88,11 @@ int getWeekday(int day, int month, int year) { //Aqui obtenemos el primer dia de
 void printHeader(int month, int year){ //aqui imprimimos algo como "December 2067" y eso y lo centramos con espacios
    
     puts("╔══════════════════════╗");
-    printf("║    ");
-    printf("%s %04d", months_name[month - 1], year);
-    if (month == 1 || month == 10 ) printf("      ║\n");
-    else if (month == 2 || month == 11 || month == 12) printf("     ║\n");
-    else if (month == 3 || month == 4) printf("        ║\n");
-    else if (month == 5) printf("          ║\n");
-    else if (month == 6 || month == 7) printf("         ║\n");
-    else if (month == 8) printf("       ║\n");
-    else if (month == 9) printf("    ║\n");
-    
-
+    printf("║");
+    char text[128];
+    snprintf(text, sizeof(text), "%s %04d", months_name[month - 1], year);
+    printCenteredHeaderText(text);
+    printf("║\n");
     puts("╠══════════════════════╣"); 
 }
 
