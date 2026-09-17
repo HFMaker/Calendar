@@ -5,6 +5,11 @@
 #include <unistd.h>
 #include "calendar.h"
 
+/*
+ *TODO: agregar un parser para parsear el input
+ (hasta el momento no me ha hecho falta para las pruebas)
+ *
+ * */
 
 
 void printHelpMessage(void){
@@ -122,7 +127,7 @@ int main(int argc, char **argv){
     puts("");
     printHeader(date.month, date.year);
     printWeekdays();
-    printCalendar(weekday, DIM, date.day, date.month, date.year, today.day, today.month, today.year);
+    printNumeratedDays(weekday, DIM, date.day, date.month, date.year, today.day, today.month, today.year);
 
     
     return 0;

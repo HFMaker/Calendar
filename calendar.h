@@ -9,7 +9,7 @@ typedef struct{
     int year;
 } Date; 
 
-void printCalendar(int day, int month_days, int date_day, int date_month, int date_year, int current_day, int current_month, int current_year);
+void printNumeratedDays(int day, int month_days, int date_day, int date_month, int date_year, int current_day, int current_month, int current_year);
 void printWeekdays();
 void printHeader(int month, int year);
 int isLeap(int year);
